@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Assignment 1</title>
+    <meta name="description" content="Questions 1-3">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        #box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+
+    <script type="text/javascript" language="javascript">
+        function getRanomColor() {
+            var values = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += values[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function createBoxes() {
+            document.getElementById("container").innerHTML = "";
+            var boxes = [];
+            var amount = document.getElementById("inputVal").value;
+            for (var i = 0; i < amount; i++) {
+                var div = document.createElement("div");
+                div.setAttribute('id', 'box');
+                div.style.width = "5vw";
+                div.style.height = "5vw";
+                div.style.background = getRanomColor();
+                div.style.float = "left";
+                div.innerHTML = i + 1;                boxes.push(div);
+            }
+            for (var i = 0; i < boxes.length; i++) {
+                var margin = 5 * i;
+                boxes[i].style.marginLeft = margin + "px";
+                document.getElementById("container").appendChild(boxes[i]);
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <form action="/action_page.php" name="input" id="input">
+        <input type="string" id="inputVal" value="">
+        <input type="button" id="submit" onclick="createBoxes()" value="Draw" ;><br><br>
+        <div id="container"></div>
+    </form>
+</body>
+
+</html>

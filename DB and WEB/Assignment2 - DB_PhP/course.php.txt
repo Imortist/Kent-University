@@ -1,0 +1,20 @@
+<?php
+   try{
+      $dbhandle = new PDO('mysql:host=dragon.kent.ac.uk; dbname=co323', 'co323', 'h@v3fun');
+   }
+catch(PDOException $e){ die('DB connect error: ' . $e->getMessage());}
+
+   $sql = "SELECT * FROM Course";
+   $query = $dbhandle->prepare($sql);
+   if($query->execute() === FALSE){
+      die('Query exec error: ' . implode($query_.errorInfo(), ' '));
+   }
+
+   $results = $query->fetchAll();
+?>
+<h2>Details of all courses</h2>
+<?php
+   foreach($results as $row){
+      echo "<p>".$row['cid'].": ".$row['title']."</p>";
+   }
+?>

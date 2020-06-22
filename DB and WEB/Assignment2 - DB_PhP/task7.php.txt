@@ -1,0 +1,42 @@
+<?php
+include 'task6.php';
+
+try{
+        $dbhandle = new PDO('mysql:host=dragon.kent.ac.uk; dbname=co323', 'co323', 'h@v3fun');
+}
+catch(PDOException $e){
+        die('DB connection error: '. $e->getMessage());
+}
+
+$query =$dbhandle->prepare('SELECT *
+                            FROM(SELECT c.cid, c.title, name, weighting, mark
+                                 FROM Grade g, Assessment a, Course c
+                                 WHERE g.aid=a.aid AND a.cid=c.cid AND sid = :student )A
+                            CROSS JOIN (SELECT cid, SUM(mark*weighting)/100 AS final
+                                        FROM Grade g, Assessment a
+                                        WHERE g.aid=a.aid AND sid = :student
+                                        GROUP BY cid)B;');
+if($query->execute([ 'student' => $_GET['student']]) === FALSE){
+        die('DB execution error: '. implode($querry->errorInfo(), ' '));
+}
+        $result = $query->fetchAll();
+
+?>
+<html>
+        <body>
+                <h5>Task 7</h5>
+                        <?php
+                                echo "Data for student: ". $_GET['student'];
+                                foreach($result as $row){
+                                        echo    "<p>".
+                                                "Course ID: ". $row['cid']. " ||".
+                                                " Title: ". $row['title']. " ||".
+                                                " Assessment Name: ". $row['name']. " ||".
+                                                " Weighting: ".$row['weighting']. " ||".
+                                                " Mark: ". $row['mark']. " ||".
+                                                " Final: ".$row['final'].
+                                                "</p>";
+                                }
+                        ?>
+        </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Assignment 1</title>
+    <meta name="description" content="Questions 1-3">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: darkblue;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: lightblue
+        }
+
+    </style>
+
+    <script>
+        function remove(o) {
+            var p = o.parentNode.parentNode;
+            p.parentNode.removeChild(p);
+            document.getElementById('caption').innerHTML = document.getElementById('mytable').rows.length-1;
+        }
+
+        function show() {
+            var button = document.createElement('button');
+            var span = document.createElement('span');
+            button.setAttribute('type', 'button');
+            button.setAttribute('onclick', 'remove(this)')
+            span.innerHTML = "Remove";
+            button.appendChild(span);
+            var mytable = document.getElementById('mytable');
+            var row = mytable.insertRow(1);
+            var cellName = row.insertCell(0);
+            var cellAge = row.insertCell(1);
+            var cellHeight = row.insertCell(2);
+            var cellJoinDate = row.insertCell(3);
+            var cellButton = row.insertCell(4);
+
+            mytable.style.display = "block";
+            cellName.innerHTML = document.getElementById("fname").value;
+            cellAge.innerHTML = document.getElementById("age").value;
+            cellHeight.innerHTML = document.getElementById("height_inch").value + " " + document.getElementById("height_feet").value;
+            cellJoinDate.innerHTML = document.getElementById("jdate").value;
+            cellButton.appendChild(button);
+            
+            document.getElementById('caption').innerHTML = document.getElementById('mytable').rows.length-1;
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+
+    <form action="/action_page.php" name="myForm" id="myForm">
+        user name: <input type="text" id="fname" name="fname" value=""><br>
+        age: <input type="number" id="age" name="age" min="18" max="60" value=""><br>
+        height: inch <select id="height_inch" name="inches">
+            <option value="4'">4'</option>
+            <option value="5'">5'</option>
+            <option value="6'">6'</option>
+        </select>
+        feet <select id="height_feet">
+            <option value="1&#34;">1"</option>
+            <option value="2&#34;">2"</option>
+            <option value="3&#34;">3"</option>
+            <option value="4&#34;">4"</option>
+            <option value="5&#34;">5"</option>
+            <option value="6&#34;">6"</option>
+            <option value="7&#34;">7"</option>
+            <option value="8&#34;">8"</option>
+            <option value="9&#34;">9"</option>
+            <option value="10&#34;">10"</option>
+            <option value="11&#34;">11"</option>
+        </select><br>
+        date joined <input type="date" id="jdate" name="join date"><br>
+        <input id="display" type="button" onclick="show()" value="Display">
+        <input id="reset" type="reset" value="Reset">
+    </form><br>
+
+    <table id="mytable" style="display: none;">
+        <caption id="caption"></caption>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>Join Date</th>
+        </tr>
+    </table>
+</body>
+
+</html>

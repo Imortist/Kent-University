@@ -1,0 +1,39 @@
+<?php
+        try{
+                $dbhandle = new PDO('mysql:host=dragon.kent.ac.uk; dbname=co323', 'co323', 'h@v3fun');
+        }
+        catch(PDOException $e){
+                die('DB connection error: '.$e->getMessage());
+
+        }
+
+        $sql = "SELECT * FROM Student";
+
+        $query = $dbhandle->prepare($sql);
+        if($query->execute() === FALSE){
+                die('Query execution error: '.implode($query->errorInfo(),' '));
+        }
+        $results = $query->fetchAll();
+?>
+
+<html>
+        <body>
+                <h5>Task 6</h5>
+
+                <form method="get" action="task7.php">
+                <label for="ID">Select student: </label>
+                <select name="student">
+                        <?php
+                                foreach($results as $row){
+                                        echo "<option value =\"". $row['sid']. "\">" .$row['sid'].
+                                                " " .$row['forename'].
+												" " . $row['surname'].
+                                                " " . $row['gender'].
+                                                "</option>";
+                                }
+                        ?>
+                </select>
+                <input type="submit" value="submit">
+                </form>
+        </body>
+</html>

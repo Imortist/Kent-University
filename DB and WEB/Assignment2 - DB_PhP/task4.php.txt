@@ -1,0 +1,48 @@
+<?php
+    try{
+		$dbhandle = new PDO('mysql:host=dragon.kent.ac.uk; dbname=co323', 'co323', 'h@v3fun');
+	}
+	catch(PDOException $e){die('DB connection error: ' . $e->getMessage());}                                  
+	
+	$sql = "SELECT name, weighting FROM Assessment a JOIN Course c ON a.cid=c.cid WHERE title = 'Database Systems' ORDER BY name";
+	$query = $dbhandle->prepare($sql);
+	
+	if($query->execute() === FALSE){
+		die('Query exec error: ' .implode($query->ErrorInfo(), ' '));
+	}
+	$results = $query->fetchAll();
+	?>                                                                                             
+	<html>
+        <head>
+                <style>
+                        table{
+                           width:100%
+                           border-collapse:collapse;
+						}                        
+						td,th{
+							border: 1px solid #dddddd;
+							text-align: center;
+							padding: 8px;               
+						}                          
+						tr:nth-child(even){          
+							background-color: #ddd
+                        }
+                </style>
+        </head>
+
+        <body>
+                <h5> Task 4 </h5>
+                <table>             
+				<tr>
+                        <th>Name</th>
+                        <th>Weighting</th>
+                   </tr>
+						<?php
+							foreach($results as $row){
+                                echo "<tr><td>".$row['name']."</td><td>".$row['weighting']."</td></tr>";
+                        }
+						 ?>
+                </table>
+
+        </body>
+</html>

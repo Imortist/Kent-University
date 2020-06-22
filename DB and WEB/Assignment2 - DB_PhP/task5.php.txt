@@ -1,0 +1,27 @@
+<?php
+        try{
+                $dbhandle = new PDO('mysql:host=dragon.kent.ac.uk; dbname=co323', 'co323', 'h@v3fun');
+        }
+        catch(PDOException $e) { die('DB connection error: '.$e->getMessage());}
+
+        $sql = "SELECT cid, name, AVG(mark) AS avg_mark FROM Grade g JOIN Assessment a ON g.aid = a.aid GROUP BY cid, name ORDER BY cid, name;";
+        $query = $dbhandle->prepare($sql);
+
+        if($query->execute() === FALSE){
+                die('Query execution error: '.implode($query->errorInfo(), ' '));
+        }
+        $results = $query->fetchAll();
+?>
+
+<html>
+        <body>
+                <h5> Task 5</h5>
+                <ol>
+                        <?php
+                                foreach($results as $row){
+                                        echo "<li>".$row['cid']." ".$row['name']." ".$row['avg_mark']."</li>";
+                                }
+                        ?>
+                </ol>
+        </body>
+</html>

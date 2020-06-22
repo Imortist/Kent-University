@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Question 3</title>
+    <meta name="description" content="Questions 1-3">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        table {
+            background-color: navy;
+            width: 50%;
+        }
+
+        td {
+            width: 33.3333%;
+            height: 33.3333%;
+        }
+
+        table {
+            background-color: cornflowerblue;
+            width: 50%;
+        }
+
+        td {
+            width: 33.3333%;
+            height: 33.3333%;
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            font-size: 90px;
+            border: 0px;
+            background-color: navy;
+            color: #FFFFFF;
+            transition-duration: 0.3s;
+        }
+
+        input:hover {
+            background-color: navy;
+        }
+
+        button {
+            padding: 5px;
+            background-color: black;
+            border: 0px;
+            color: #FFFFFF;
+            font-size: 100%;
+            width: 50%;
+        }
+
+        button:hover {
+            background-color: navy;
+        }
+
+        #message {
+            z-index: 5;
+            position: fixed;
+            left: 25%;
+            top: 40%;
+            width: 50%;
+            padding: 5px;
+            visibility: hidden;
+            background-color: #FFFFFF;
+            color: black;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #popupbutton {
+            width: 100%;
+            background: navy;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            opacity: 0.3;
+            visibility: hidden;
+        }
+
+    </style>
+
+    <script>
+        var letter = "O";
+
+        function reset() {
+            var b1 = document.getElementById("1");
+            var b2 = document.getElementById("2");
+            var b3 = document.getElementById("3");
+            var b4 = document.getElementById("4");
+            var b5 = document.getElementById("5");
+            var b6 = document.getElementById("6");
+            var b7 = document.getElementById("7");
+            var b8 = document.getElementById("8");
+            var b9 = document.getElementById("9");
+
+            b1.value = "";
+            b2.value = "";
+            b3.value = "";
+            b4.value = "";
+            b5.value = "";
+            b6.value = "";
+            b7.value = "";
+            b8.value = "";
+            b9.value = "";
+            b1.disabled = false;
+            b2.disabled = false;
+            b3.disabled = false;
+            b4.disabled = false;
+            b5.disabled = false;
+            b6.disabled = false;
+            b7.disabled = false;
+            b8.disabled = false;
+            b9.disabled = false;
+
+            document.getElementById("message").style.visibility = "hidden";
+            document.getElementById("overlay").style.visibility = "hidden";
+        }
+
+        function disable() {
+            var b1 = document.getElementById("1");
+            var b2 = document.getElementById("2");
+            var b3 = document.getElementById("3");
+            var b4 = document.getElementById("4");
+            var b5 = document.getElementById("5");
+            var b6 = document.getElementById("6");
+            var b7 = document.getElementById("7");
+            var b8 = document.getElementById("8");
+            var b9 = document.getElementById("9");
+
+            b1.disabled = true;
+            b2.disabled = true;
+            b3.disabled = true;
+            b4.disabled = true;
+            b5.disabled = true;
+            b6.disabled = true;
+            b7.disabled = true;
+            b8.disabled = true;
+            b9.disabled = true;
+        }
+
+        function messageWinner(getWinner) {
+
+            disable();
+
+
+            popuptext = document.getElementById("text");
+            popuptext.innerHTML = getWinner + " wins.";
+
+
+            var pop = document.getElementById("message");
+            var overlay = document.getElementById("overlay");
+            pop.style.visibility = "visible";
+            overlay.style.visibility = "visible"
+        }
+
+        function checkWinCondition() {
+
+            var b1 = document.getElementById("1").value;
+            var b2 = document.getElementById("2").value;
+            var b3 = document.getElementById("3").value;
+            var b4 = document.getElementById("4").value;
+            var b5 = document.getElementById("5").value;
+            var b6 = document.getElementById("6").value;
+            var b7 = document.getElementById("7").value;
+            var b8 = document.getElementById("8").value;
+            var b9 = document.getElementById("9").value;
+
+
+            if (((b1 == "X") || (b1 == "O")) && ((b1 == b2) && (b2 == b3))) {
+                messageWinner(b1);
+            } else if (((b1 == "X") || (b1 == "O")) && ((b1 == b4) && (b4 == b7))) {
+                messageWinner(b1);
+            } else if (((b9 == "X") || (b9 == "O")) && ((b9 == b8) && (b8 == b7))) {
+                messageWinner(b9);
+            } else if (((b9 == "X") || (b9 == "O")) && ((b9 == b6) && (b6 == b3))) {
+                messageWinner(b9);
+            } else if (((b4 == "X") || (b4 == "O")) && ((b4 == b5) && (b5 == b6))) {
+                messageWinner(b4);
+            } else if (((b2 == "X") || (b2 == "O")) && ((b2 == b5) && (b5 == b8))) {
+                messageWinner(b2);
+            } else if (((b1 == "X") || (b1 == "O")) && ((b1 == b5) && (b5 == b9))) {
+                messageWinner(b1);
+            } else if (((b7 == "X") || (b7 == "O")) && ((b7 == b5) && (b5 == b3))) {
+                messageWinner(b7);
+            }
+        }
+
+        function game(loc, letter) {
+            if (loc == 1) {
+                var button = document.getElementById("1");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 2) {
+                var button = document.getElementById("2");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 3) {
+                var button = document.getElementById("3");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 4) {
+                var button = document.getElementById("4");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 5) {
+                var button = document.getElementById("5");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 6) {
+                var button = document.getElementById("6");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 7) {
+                var button = document.getElementById("7");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 8) {
+                var button = document.getElementById("8");
+                button.value = letter;
+                button.disabled = true;
+            } else if (loc == 9) {
+                var button = document.getElementById("9");
+                button.value = letter;
+                button.disabled = true;
+            }
+            checkWinCondition();
+        }
+
+        function play(button) {
+            if (letter == "X") {
+                letter = "O";
+                game(button, letter);
+            } else if (letter == "O") {
+                letter = "X";
+                game(button, letter);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td><input type="button" id="1" onclick="play(1)" value="" /></td>
+            <td><input type="button" id="2" onclick="play(2)" value="" /></td>
+            <td><input type="button" id="3" onclick="play(3)" value="" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="4" onclick="play(4)" value="" /></td>
+            <td><input type="button" id="5" onclick="play(5)" value="" /></td>
+            <td><input type="button" id="6" onclick="play(6)" value="" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" id="7" onclick="play(7)" value="" /></td>
+            <td><input type="button" id="8" onclick="play(8)" value="" /></td>
+            <td><input type="button" id="9" onclick="play(9)" value="" /></td>
+        </tr>
+    </table>
+
+    <button onclick="reset()">Reset</button>
+
+
+    <section align="center" id="message">
+        <p align="center" id="text">No one</p>
+        <button id="popupbutton" onclick="reset()">Ok</button>
+    </section>
+    <section id="overlay">
+    </section>
+
+</body>
+
+</html>

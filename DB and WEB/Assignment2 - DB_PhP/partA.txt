@@ -1,0 +1,30 @@
+Aleksej Bratkovskij (ab2323)
+
+Task 1:
+    mysql> SELECT name, weighting
+    -> FROM Assessment
+    -> WHERE cid = 'CO103'
+    -> ORDER BY cid;
+
+
+
+Task 2:
+    mysql> SELECT a.cid, a.name, AVG(g.mark)
+    -> FROM Assessment a, Grade g
+    -> WHERE g.aid = a.aid
+    -> GROUP BY g.aid
+    -> ORDER BY a.cid, a.name;
+
+
+Task 3:
+ a)
+    mysql> SELECT c.cid, c.title, a.name, a.weighting, g.mark
+    -> FROM Course c, Assessment a, Grade g
+    -> WHERE g.sid = 'S0001' && a.aid = g.aid && c.cid = a.cid;
+
+ b)
+   mysql> SELECT a.cid,
+    -> sum(g.mark * a.weighting) / sum(weighting)
+    -> FROM Assessment a, Grade g
+    -> WHERE g.aid = a.aid && g.sid = 'S0001'
+    -> GROUP BY a.cid;  
