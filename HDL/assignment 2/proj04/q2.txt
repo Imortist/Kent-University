@@ -1,0 +1,4 @@
+At 200 MHz CPU can execute 200,000 cycles per milisecond;
+5ms keypress means that there are 1,000,000 cycles during the keypress;
+After detecting input, we have at most 1 million instructions, but there is no guarantee that we've detected input as soon as it was pressed.
+If we allow 999,999 instructions after we've detected input, we will detect next input.

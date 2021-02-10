@@ -1,0 +1,16 @@
+class Subroutines
+{
+    constructor Subroutines create()
+    {
+        return this;
+    }
+
+    method void m()
+    {
+    }
+
+    function int f()
+    {
+        return 2021;
+    }
+}

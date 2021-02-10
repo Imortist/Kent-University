@@ -1,0 +1,7 @@
+class Example{
+field int a,b,c;
+static char x,z;
+constructor void foo (int a){
+var char a;
+}
+}

@@ -1,0 +1,5 @@
+class ClassVarDecs
+{
+    static char c;
+    field Array a;
+}

@@ -1,0 +1,5 @@
+Q:  How many DFF gates are in a RAM16K? 
+	[I will assume your RAM16K is using exactly the necessary number of gates, 
+		no more and no less. So if you think your solution might be wrong or have 
+			extraneous gates, answer based on how an ideal solution ‘should’ work.]
+A: Ram16k uses 4xRAM4k which uses 8xRAM512 which uses 8xRAM64, which uses 8xRAM8 which uses 8xDFFs. Adding all together we get 16,384 DFFs.

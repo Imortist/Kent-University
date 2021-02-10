@@ -1,0 +1,5 @@
+Q:  In a computer using your PC implementation as its program counter, 
+	how much memory does one instruction take? 
+	[You will need the lectures from week 4 to answer this question.]
+	
+A: 6bits or six 1bit inputs;

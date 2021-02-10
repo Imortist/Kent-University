@@ -1,0 +1,28 @@
+CHIP PC {
+    IN in[16],load,inc,reset;
+    OUT out[16];
+
+    PARTS:
+		Register(in=nextLow,  out=out[0..7],  out=currentLow,  load=true);
+		Register(in=nextHigh, out=out[8..15], out=currentHigh, load=true);
+
+		And(a=inc, b=lowIsMax, out=incAndLowIsMax);
+		And8(a=true, b=currentLow, out=Low);
+		And8Way(in=Low, out=lowIsMax);
+
+		Inc8(in=currentLow, out=incLow);
+		Inc8(in=currentHigh, out=incHigh);
+
+		Mux8(a=currentHigh, b=incHigh, sel=incAndLowIsMax , out=outHigh);
+		Mux8(a=currentHigh, b=outHigh, sel=inc, out=outHigh2);
+		Mux8(a=outHigh2, b=in[8..15], sel=load, out=outHigh3);
+		Mux8(a=outHigh3, b=false, sel=reset, out=nextHigh);
+		
+		Or(a= reset, b=incAndLowIsMax, out = resetOut);
+				
+		Mux8(a=incLow, b=currentLow, sel=incAndLowIsMax, out=outLow);
+ 		Mux8(a=currentLow, b=outLow, sel=inc, out=outLow2);
+		Mux8(a=currentLow, b=outLow2, sel=inc, out=outLow3);
+		Mux8(a=outLow3, b=in[0..7], sel=load, out=outLow4);
+		Mux8(a=outLow4, b=false, sel=resetOut, out=nextLow);
+}

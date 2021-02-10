@@ -1,0 +1,8 @@
+class LetVariable
+{
+    method void m()
+    {
+        // x has not been declared.
+        let x = 0;
+    }
+}

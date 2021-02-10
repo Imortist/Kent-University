@@ -1,0 +1,4 @@
+class Example{
+	static int a,b,c;
+	field char y;
+}

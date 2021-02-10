@@ -1,0 +1,9 @@
+class ExprVariable
+{
+    method void m()
+    {
+        var int x;
+        // y has not been declared.
+        let x = 3 + y - 2;
+    }
+}

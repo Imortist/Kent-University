@@ -1,0 +1,7 @@
+class BasicClass
+{
+    constructor BasicClass create()
+    {
+        return this;
+    }
+}

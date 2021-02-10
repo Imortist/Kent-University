@@ -1,0 +1,7 @@
+class Parameters
+{
+    method int m(boolean b, int y, Array a, char c)
+    {
+        return  y - c;
+    }
+}

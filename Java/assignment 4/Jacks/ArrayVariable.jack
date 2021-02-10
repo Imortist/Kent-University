@@ -1,0 +1,9 @@
+class ArrayVariable
+{
+    method void m()
+    {
+        var int x;
+        // x has not been declared as an Array.
+        let x[5] = 3;
+    }
+}

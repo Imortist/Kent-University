@@ -1,0 +1,7 @@
+Q: If you had to load into a single RAM16K chip all the.hdl files that your project 3
+ solution consists of, as raw bytes just as they are stored on disk, 
+ what percentage of that chip would they fill? 
+ Round your answer to the nearest whole percentage. 
+ [If they wouldn’t fit,simply submit a percentage greater than 100.]
+
+A: 13.33KB of HDL files in 16KB RAM => 81%
