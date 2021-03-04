@@ -62,8 +62,56 @@ data Expr = Plus Expr Expr
           | Neg Expr
           | Const Integer
           | Var String
+  deriving Show
 
 
 prog1 = Plus (Const 1) (Const 2)
 prog2 = Mult (Const 2) prog1
 prog3 = Plus (Var "x") (Plus (Const 1) (Var "y"))
+prog4 = Assign "z" (Mult prog3 prog2)
+progMain =
+  Seq (Assign "x" (1 + 2))
+   $ Seq (Assign "y" (Var "x" +4))
+   $ Seq (Assign "z" ((Var "x") * (Var "y")))
+   $ Empty
+
+instance Num Expr where
+  x + y    = Plus x y
+  x - y    = Plus x (Neg y)
+  x * y    = Mult x y
+  negate x = Neg x
+  abs x    = undefined
+  signum x = undefined
+  fromInteger x = Const x
+
+-- p3 Association List aka Java Map, aka C dictionary
+
+evalExpr :: [(String, Integer)] -> Expr -> Integer
+evalExpr env (Plus e1 e2) = evalExpr env e1 + evalExpr env e2
+evalExpr env (Mult e1 e2) = evalExpr env e1 * evalExpr env e2
+evalExpr env (Neg e)      = - evalExpr env e
+evalExpr env (Const n)    = n
+evalExpr env (Var n)      =
+  case lookup n env of
+    Just n -> n
+    Nothing -> error $ "Unknown variable" ++ n
+
+env :: [(String, Integer)]
+env = [("x", 42), ("y", 100)]
+
+data Stmt = Assign String Expr
+  deriving Show
+
+evalStmt :: [(String, Integer)] -> Stmt -> [(String, Integer)]
+evalStmt env (Assign var expr) = (var, evalExpr env expr) : env
+
+data Program = Empty | Seq Stmt Program
+  deriving Show
+
+evalProgram :: Program -> [(String, Integer)]
+evalProgram prog = evalProgram' [] prog
+
+evalProgram' :: [(String, Integer)] -> Program -> [(String, Integer)]
+evalProgram' env Empty = env
+evalProgram' env (Seq s prog) =
+  evalProgram' (evalStmt  env s) prog
